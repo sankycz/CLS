@@ -1,0 +1,29 @@
+{
+  "name": "cls",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Výcviková offline PWA pro postup TCCC Combat Lifesaver (MARCH PAWS, 9-Line, MIST, DD 1380)",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "deploy": "npm run build && wrangler deploy"
+  },
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^5.2.0",
+    "typescript": "~5.9.3",
+    "vite": "^7.3.7",
+    "vitest": "^3.2.7",
+    "wrangler": "^4.40.0"
+  }
+}

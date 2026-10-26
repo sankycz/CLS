@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#111"/>
+  <path d="M206 96h100v110h110v100H306v110H206V306H96V206h110z" fill="#c62828"/>
+  <text x="256" y="292" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="84" fill="#fff">CLS</text>
+</svg>
