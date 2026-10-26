@@ -6,7 +6,7 @@
   "description": "Výcviková offline PWA pro postup TCCC Combat Lifesaver (MARCH PAWS, 9-Line, MIST, DD 1380)",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "build": "tsc --noEmit && vite build && node scripts/build-worker.mjs",
     "preview": "vite preview",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",

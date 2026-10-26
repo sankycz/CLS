@@ -121,7 +121,7 @@ export const InterventionLog = ({ casualty, act }: { casualty: Casualty; act: Ac
 
 export const Tacevac = ({ casualty, act, send, now }: { casualty: Casualty; act: Act; send: (event: FsmEvent) => void; now: number }) => (
   <div className="tacevac">
-    <h2>Tactical Evacuation – monitorace</h2>
+    <h2>Taktická evakuace – sledování</h2>
     <p className="muted">Opakovaně přehodnocuj. Jakákoli změna stavu = znovu od M.</p>
     <div className="grid-2">
       <Button tone="warn" onClick={() => send({ type: 'REASSESS' })}>

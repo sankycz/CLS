@@ -19,16 +19,16 @@ const PHONETIC: Record<string, string> = {
 };
 
 export const PRECEDENCE_LABEL: Record<Precedence, string> = {
-  A: 'Urgent (do 90 min)',
-  B: 'Urgent Surgical (do 90 min, chirurgie)',
-  C: 'Priority (do 4 h)',
-  D: 'Routine (do 24 h)',
-  E: 'Convenience',
+  A: 'Naléhavý (do 90 min)',
+  B: 'Naléhavý chirurgický (do 90 min)',
+  C: 'Prioritní (do 4 h)',
+  D: 'Rutinní (do 24 h)',
+  E: 'Dle možností',
 };
 
 export const EQUIPMENT_LABEL: Record<EvacInfo['equipment'][number], string> = {
   A: 'Nic',
-  B: 'Naviják (hoist)',
+  B: 'Naviják',
   C: 'Vyprošťovací technika',
   D: 'Ventilátor',
 };
@@ -225,7 +225,7 @@ export const mistText = (casualty: Casualty): string => {
 export type DdTourniquetRow = { limb: Limb; type: string; time: string };
 
 export type Dd1380 = {
-  evacCategory: 'Urgent' | 'Priority' | 'Routine';
+  evacCategory: 'Naléhavý' | 'Prioritní' | 'Rutinní';
   tourniquets: DdTourniquetRow[];
   circulation: { extremityTq: boolean; hemostatic: boolean; pressure: boolean; other: boolean };
   airway: { intact: boolean; npa: boolean };
@@ -241,10 +241,10 @@ const eyeShieldOn = (casualty: Casualty, side: 'right' | 'left'): boolean =>
 export const buildDd1380 = (casualty: Casualty): Dd1380 => {
   const precedence = effectivePrecedence(casualty);
   return {
-    evacCategory: precedence === 'A' || precedence === 'B' ? 'Urgent' : precedence === 'C' ? 'Priority' : 'Routine',
+    evacCategory: precedence === 'A' || precedence === 'B' ? 'Naléhavý' : precedence === 'C' ? 'Prioritní' : 'Rutinní',
     tourniquets: casualty.tourniquets.map((tq) => ({
       limb: tq.limb,
-      type: tq.convertedAt ? 'konvertován' : tq.removedAt ? 'nahrazen' : tq.type === 'hasty' ? 'Hasty' : 'Deliberate',
+      type: tq.convertedAt ? 'konvertován' : tq.removedAt ? 'nahrazen' : tq.type === 'hasty' ? 'rychlý' : 'cílený',
       time: formatTime(tq.appliedAt),
     })),
     circulation: {

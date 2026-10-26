@@ -21,7 +21,7 @@ const serviceWorker = (): Plugin => {
       outDir = config.build.outDir;
     },
     closeBundle() {
-      const skip = new Set(['sw.js', '_headers']);
+      const skip = new Set(['sw.js']);
       const files = listFiles(outDir).filter((path) => !skip.has(relative(outDir, path)));
       const hash = createHash('sha256');
       const urls = files.map((path) => {

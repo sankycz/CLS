@@ -1,10 +1,10 @@
 {
-  // Statická PWA servírovaná přes Cloudflare Workers Static Assets.
+  // PWA zabalená do jednoho Workeru – skript generuje `npm run build` (scripts/build-worker.mjs).
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "cls",
+  "main": ".worker/worker.js",
   "compatibility_date": "2026-10-01",
-  "assets": {
-    "directory": "./dist",
-    "not_found_handling": "single-page-application"
-  }
+  "workers_dev": true,
+  "preview_urls": false,
+  "observability": { "enabled": true }
 }

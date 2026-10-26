@@ -34,11 +34,11 @@ export const CufExecutor = ({
   return (
     <div className="cuf">
       <div className="cuf-banner">
-        <strong>CARE UNDER FIRE</strong>
+        <strong>PÉČE POD PALBOU</strong>
         <span>Palebná převaha · kryj se · nezraň se</span>
       </div>
-      <p className="cuf-hint">Život ohrožující krvácení z končetiny → HASTY TQ co nejvýše přes oděv, utáhnout. Dýchací cesty teď neřeš.</p>
-      <h3>HASTY TQ – končetina</h3>
+      <p className="cuf-hint">Život ohrožující krvácení z končetiny → RYCHLÝ TQ co nejvýše přes oděv, pevně utáhnout. Dýchací cesty teď neřeš.</p>
+      <h3>Rychlý TQ – končetina</h3>
       <div className="grid-2 cuf-limbs">
         {LIMBS.map((limb) => (
           <Button
@@ -53,7 +53,7 @@ export const CufExecutor = ({
         ))}
       </div>
       <Button tone="ok" big onClick={() => send({ type: 'IN_COVER' })}>
-        PŘESUN DO KRYTU HOTOV → TFC
+        V KRYTU → TAKTICKÁ PÉČE (TFC)
       </Button>
     </div>
   );

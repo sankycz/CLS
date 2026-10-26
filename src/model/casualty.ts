@@ -178,15 +178,15 @@ export const reassessTourniquet = (casualty: Casualty, tourniquetId: string, now
   return { ...withLog, tourniquets: updateTourniquet(withLog, tourniquetId, { reassessedAt: now }) };
 };
 
-/** Hasty TQ nahrazen deliberate TQ 5–7 cm nad ranou. Původní turniket se uzavře, vznikne nový. */
+/** Rychlý TQ nahrazen cíleným TQ 5–7 cm nad ranou. Původní turniket se uzavře, vznikne nový. */
 export const replaceWithDeliberate = (casualty: Casualty, tourniquetId: string, now: number): Casualty => {
   const tq = casualty.tourniquets.find((item) => item.id === tourniquetId);
   if (!tq) return casualty;
   const closed = { ...casualty, tourniquets: updateTourniquet(casualty, tourniquetId, { removedAt: now, reassessedAt: now }) };
-  return addIntervention(closed, 'tq_deliberate', now, { limb: tq.limb, zoneId: tq.zoneId, detail: 'náhrada za hasty TQ' });
+  return addIntervention(closed, 'tq_deliberate', now, { limb: tq.limb, zoneId: tq.zoneId, detail: 'náhrada za rychlý TQ' });
 };
 
-/** Konverze TQ na tlakový obvaz / packing. CLS smí konvertovat jen do 2 h od přiložení. */
+/** Konverze TQ na tlakový obvaz / tamponádu. CLS smí konvertovat jen do 2 h od přiložení. */
 export const convertTourniquet = (casualty: Casualty, tourniquetId: string, now: number): Casualty => {
   const tq = casualty.tourniquets.find((item) => item.id === tourniquetId);
   if (!tq) return casualty;

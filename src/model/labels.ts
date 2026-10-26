@@ -32,25 +32,25 @@ export const BLEEDING_LABEL: Record<Bleeding, string> = {
 };
 
 export const INTERVENTION_LABEL: Record<InterventionKind, string> = {
-  tq_hasty: 'Hasty TQ',
-  tq_deliberate: 'Deliberate TQ (5–7 cm nad ranou)',
-  wound_packing: 'Wound packing (Combat Gauze)',
+  tq_hasty: 'Rychlý TQ',
+  tq_deliberate: 'Cílený TQ (5–7 cm nad ranou)',
+  wound_packing: 'Tamponáda rány hemostatickou gázou',
   pressure_dressing: 'Tlakový obvaz',
   direct_pressure: 'Přímý tlak',
   dressing: 'Krytí rány',
   burn_dressing: 'Popáleninové krytí',
-  jaw_thrust: 'Jaw-thrust / Chin-lift',
+  jaw_thrust: 'Předsunutí čelisti / záklon hlavy',
   npa: 'NPA (nosní vzduchovod)',
   recovery_position: 'Zotavovací poloha',
-  chest_seal: 'Ventilový chest seal',
+  chest_seal: 'Ventilová hrudní náplast',
   ndc: 'Jehelní dekomprese (NDC)',
   txa: 'TXA 2 g (zdravotník)',
   hypothermia: 'Prevence hypotermie',
-  eye_shield: 'Rigid Eye Shield',
-  splint: 'Dlaha (SAM Splint)',
-  pill_pack: 'Combat Wound Medication Pack',
+  eye_shield: 'Pevný oční kryt',
+  splint: 'Dlaha (SAM)',
+  pill_pack: 'Balíček léků na rány (CWMP)',
   moved_to_cover: 'Přesun do krytu',
-  tq_reassessed: 'Reassessment TQ',
+  tq_reassessed: 'Přehodnocení TQ',
   tq_converted: 'Konverze TQ',
   override: 'Pokračováno přes upozornění',
 };
@@ -77,9 +77,9 @@ export const AVPU_LABEL: Record<Avpu, string> = {
 };
 
 export const PHASE_LABEL: Record<Phase, string> = {
-  CUF: 'Care Under Fire',
-  TFC: 'Tactical Field Care',
-  TACEVAC: 'Tactical Evacuation',
+  CUF: 'Péče pod palbou',
+  TFC: 'Taktická péče v poli',
+  TACEVAC: 'Taktická evakuace',
 };
 
 export const STEP_LETTER: Record<MarchStep, string> = {

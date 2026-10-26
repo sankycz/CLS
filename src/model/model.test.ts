@@ -156,6 +156,6 @@ describe('hlášení', () => {
     expect(mist.m).toContain('14:30');
     expect(mist.i).toContain('GSW Levé stehno proximálně');
     expect(mist.i).toContain('zastaveno');
-    expect(mist.t).toContain('14:31 Deliberate TQ');
+    expect(mist.t).toContain('14:31 Cílený TQ');
   });
 });

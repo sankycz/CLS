@@ -51,28 +51,28 @@ export const checkStep = (casualty: Casualty, step: MarchStep, now: number): Ste
 
   switch (step) {
     case 'MARCH_M': {
-      if (!assessment.bloodSweep) blockers.push('Proveďte blood sweep celého těla (zepředu i zezadu).');
+      if (!assessment.bloodSweep) blockers.push('Prohledejte celé tělo na krvácení (zepředu i zezadu).');
       casualty.injuries
         .filter((injury) => injury.bleeding === 'massive' && !injury.controlled)
         .forEach((injury) => blockers.push(`Nezastavené masivní krvácení: ${zoneLabel(injury.zoneId)}.`));
       activeTourniquets(casualty)
         .filter((tq) => tq.type === 'hasty')
-        .forEach(() => warnings.push('Hasty TQ z CUF: obnažte ránu a nahraďte deliberate TQ 5–7 cm nad ranou.'));
+        .forEach(() => warnings.push('Rychlý TQ z CUF: obnažte ránu a nahraďte cíleným TQ 5–7 cm nad ranou.'));
       break;
     }
     case 'MARCH_A': {
       if (!assessment.avpu) blockers.push('Určete stav vědomí (AVPU).');
       if (!assessment.airway) blockers.push('Zhodnoťte průchodnost dýchacích cest.');
-      if (assessment.airway === 'compromised') blockers.push('Dýchací cesty nejsou zajištěny: jaw-thrust, NPA, zotavovací poloha.');
+      if (assessment.airway === 'compromised') blockers.push('Dýchací cesty nejsou zajištěny: předsunutí čelisti, NPA, zotavovací poloha.');
       break;
     }
     case 'MARCH_R': {
       if (!assessment.chest) blockers.push('Obnažte a zkontrolujte hrudník zepředu i zezadu.');
       casualty.injuries
         .filter((injury) => isOpenChestWound(casualty, injury.zoneId, injury.kind))
-        .forEach((injury) => blockers.push(`Otevřená rána hrudníku bez chest sealu: ${zoneLabel(injury.zoneId)}.`));
+        .forEach((injury) => blockers.push(`Otevřená rána hrudníku bez hrudní náplasti: ${zoneLabel(injury.zoneId)}.`));
       if (assessment.chest === 'open_wound' && !hasIntervention(casualty, 'chest_seal')) {
-        blockers.push('Přiložte ventilový chest seal (vstup i výstup).');
+        blockers.push('Přiložte ventilovou hrudní náplast (vstup i výstup).');
       }
       if (assessment.chest === 'tension_suspected' && !hasIntervention(casualty, 'ndc')) {
         blockers.push('Podezření na tenzní pneumotorax: proveďte jehelní dekompresi (NDC).');
@@ -83,7 +83,7 @@ export const checkStep = (casualty: Casualty, step: MarchStep, now: number): Ste
       if (!assessment.radialPulse) blockers.push('Zkontrolujte radiální pulz.');
       activeTourniquets(casualty)
         .filter((tq) => tq.reassessedAt === undefined)
-        .forEach(() => blockers.push('Přehodnoťte všechny přiložené turnikety (reassessment).'));
+        .forEach(() => blockers.push('Přehodnoťte všechny přiložené turnikety.'));
       if (hasUncontrolledMassiveBleeding(casualty)) blockers.push('Stále nezastavené masivní krvácení – zpět na M.');
       if (txaIndicated(casualty) && !casualty.meds.some((med) => med.category === 'txa')) {
         warnings.push('Indikace TXA 2 g – vyžádejte zdravotníka (CMC), CLS TXA nepodává.');
@@ -95,7 +95,7 @@ export const checkStep = (casualty: Casualty, step: MarchStep, now: number): Ste
       if (!assessment.hypothermia) blockers.push('Proveďte prevenci hypotermie (nebo uveďte, že nelze).');
       casualty.injuries
         .filter((injury) => injury.kind === 'eye' && !hasIntervention(casualty, 'eye_shield'))
-        .forEach(() => warnings.push(`${INJURY_LABEL.eye}: přiložte Rigid Eye Shield, ne tlakový obvaz.`));
+        .forEach(() => warnings.push(`${INJURY_LABEL.eye}: přiložte pevný oční kryt, ne tlakový obvaz.`));
       break;
     }
     case 'PAWS_P':

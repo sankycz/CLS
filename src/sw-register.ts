@@ -2,6 +2,7 @@
 
 const listeners = new Set<() => void>();
 let waiting: ServiceWorker | null = null;
+let updateRequested = false;
 
 const announce = (worker: ServiceWorker | null) => {
   if (!worker) return;
@@ -21,10 +22,10 @@ export const registerServiceWorker = (): void => {
         });
       });
     });
-    let reloading = false;
+    // Při první instalaci si worker převezme stránku sám – reload jen po potvrzení nové verze uživatelem.
     navigator.serviceWorker.addEventListener('controllerchange', () => {
-      if (reloading) return;
-      reloading = true;
+      if (!updateRequested) return;
+      updateRequested = false;
       window.location.reload();
     });
   });
@@ -37,5 +38,6 @@ export const onServiceWorkerUpdate = (listener: () => void): (() => void) => {
 };
 
 export const applyServiceWorkerUpdate = (): void => {
+  updateRequested = true;
   waiting?.postMessage({ type: 'SKIP_WAITING' });
 };

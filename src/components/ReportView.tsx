@@ -143,13 +143,13 @@ const Dd1380Tab = ({ casualty }: { casualty: Casualty }) => {
   return (
     <div className="dd1380">
       <div className="dd-head">
-        <strong>TCCC CARD (DD 1380)</strong>
-        <span>EVAC: {dd.evacCategory}</span>
+        <strong>KARTA TCCC (DD 1380)</strong>
+        <span>Evakuace: {dd.evacCategory}</span>
       </div>
       <div className="dd-grid">
-        <span>Battle roster: {identity.battleRoster}</span>
+        <span>Evidenční číslo: {identity.battleRoster}</span>
         <span>Jméno: {identity.name || '—'}</span>
-        <span>Last 4: {identity.last4 || '—'}</span>
+        <span>Posl. 4 číslice ID: {identity.last4 || '—'}</span>
         <span>Pohlaví: {identity.sex || '—'}</span>
         <span>Datum: {formatDate(casualty.injuryAt)}</span>
         <span>Čas: {formatTime(casualty.injuryAt)}</span>
@@ -181,7 +181,7 @@ const Dd1380Tab = ({ casualty }: { casualty: Casualty }) => {
         <strong>A:</strong> <Check on={dd.airway.intact} label="Průchodné" /> <Check on={dd.airway.npa} label="NPA" />
       </div>
       <div className="dd-section">
-        <strong>B:</strong> <Check on={dd.breathing.needleD} label="Needle-D" /> <Check on={dd.breathing.chestSeal} label="Chest seal" />
+        <strong>B:</strong> <Check on={dd.breathing.needleD} label="Jehelní dekomprese" /> <Check on={dd.breathing.chestSeal} label="Hrudní náplast" />
       </div>
       <div className="dd-section">
         <strong>Vitální funkce:</strong>
@@ -220,8 +220,8 @@ const Dd1380Tab = ({ casualty }: { casualty: Casualty }) => {
         <strong>Léky:</strong> {casualty.meds.map((m) => `${m.name} ${m.dose} ${m.route} ${formatTime(m.at)}`).join('; ') || '—'}
       </div>
       <div className="dd-section">
-        <strong>Ostatní:</strong> <Check on={dd.other.pillPack} label="Combat Pill Pack" /> <Check on={dd.other.eyeShieldRight} label="Eye shield P" />{' '}
-        <Check on={dd.other.eyeShieldLeft} label="Eye shield L" /> <Check on={dd.other.splint} label="Dlaha" /> <Check on={dd.other.hypothermia} label="Hypotermie" />
+        <strong>Ostatní:</strong> <Check on={dd.other.pillPack} label="Balíček léků" /> <Check on={dd.other.eyeShieldRight} label="Oční kryt P" />{' '}
+        <Check on={dd.other.eyeShieldLeft} label="Oční kryt L" /> <Check on={dd.other.splint} label="Dlaha" /> <Check on={dd.other.hypothermia} label="Hypotermie" />
       </div>
       <div className="dd-section">
         <strong>Záznam zásahů:</strong>
@@ -262,12 +262,12 @@ const DataTab = ({ casualty, act }: { casualty: Casualty; act: Act }) => {
     <>
       <Section title="Identifikace">
         <div className="grid-2">
-          <TextField label="Battle roster #" value={identity.battleRoster} onChange={(battleRoster) => setIdentity({ battleRoster })} />
-          <TextField label="Last 4" value={identity.last4} onChange={(last4) => setIdentity({ last4 })} />
+          <TextField label="Evidenční číslo" value={identity.battleRoster} onChange={(battleRoster) => setIdentity({ battleRoster })} />
+          <TextField label="Posl. 4 číslice ID" value={identity.last4} onChange={(last4) => setIdentity({ last4 })} />
         </div>
         <TextField label="Jméno" value={identity.name} onChange={(name) => setIdentity({ name })} />
         <TextField label="Jednotka" value={identity.unit} onChange={(unit) => setIdentity({ unit })} />
-        <TextField label="Alergie" value={identity.allergies} placeholder="NKDA" onChange={(allergies) => setIdentity({ allergies })} />
+        <TextField label="Alergie" value={identity.allergies} placeholder="bez známých alergií" onChange={(allergies) => setIdentity({ allergies })} />
         <Choice
           label="Pohlaví"
           columns={2}
@@ -310,7 +310,7 @@ const DataTab = ({ casualty, act }: { casualty: Casualty; act: Act }) => {
           }}
         />
         <TextField
-          label="Poskytl první pomoc (jméno, last 4)"
+          label="Poskytl první pomoc (jméno, posl. 4 číslice ID)"
           value={casualty.firstResponder}
           onChange={(firstResponder) => act((c, now) => ({ ...c, firstResponder, updatedAt: now }))}
         />

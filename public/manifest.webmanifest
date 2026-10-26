@@ -1,7 +1,7 @@
 {
   "name": "CLS TCCC – taktická první pomoc",
   "short_name": "CLS TCCC",
-  "description": "Offline výcviková pomůcka pro postup TCCC Combat Lifesaver.",
+  "description": "Offline výcviková pomůcka pro postup TCCC na úrovni CLS.",
   "lang": "cs",
   "start_url": "/",
   "scope": "/",

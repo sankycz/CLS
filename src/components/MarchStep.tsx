@@ -32,18 +32,18 @@ const StepM = ({ casualty, act, now, openZone }: StepProps) => {
     <>
       <Guidance
         items={[
-          'Blood sweep: hlava → krk → trup → podpaží a třísla → končetiny, zepředu i zezadu.',
+          'Prohledej tělo na krvácení: hlava → krk → trup → podpaží a třísla → končetiny, zepředu i zezadu.',
           'Klepni na místo krvácení a zapiš zranění a zásah.',
-          'Končetina: deliberate TQ 5–7 cm nad ranou. Nestačí-li, druhý TQ těsně nad prvním.',
-          'Krk, podpaží, tříslo: wound packing + min. 3 min tlak, pak tlakový obvaz.',
+          'Končetina: cílený TQ 5–7 cm nad ranou. Nestačí-li, druhý TQ těsně nad prvním.',
+          'Krk, podpaží, tříslo: tamponáda rány + min. 3 min tlak, pak tlakový obvaz.',
         ]}
       />
       <MapBlock casualty={casualty} openZone={openZone} />
       <Choice
-        label="Blood sweep"
+        label="Prohledání těla"
         value={casualty.assessment.bloodSweep ? 'done' : undefined}
         onChange={() => assess({ bloodSweep: true })}
-        options={[{ value: 'done', label: 'Blood sweep proveden', tone: 'ok' }]}
+        options={[{ value: 'done', label: 'Tělo prohledáno', tone: 'ok' }]}
       />
       {hasUncontrolledMassiveBleeding(casualty) && (
         <Section tone="danger">
@@ -86,7 +86,7 @@ const StepA = ({ casualty, act }: StepProps) => {
       />
       <Section title="Zásahy">
         <div className="grid-2">
-          <Button onClick={() => log('jaw_thrust')}>Jaw-thrust / Chin-lift</Button>
+          <Button onClick={() => log('jaw_thrust')}>Předsunutí čelisti / záklon hlavy</Button>
           <Button onClick={() => log('npa')}>Zavést NPA</Button>
           <Button onClick={() => log('recovery_position')}>Zotavovací poloha</Button>
         </div>
@@ -112,7 +112,7 @@ const StepR = ({ casualty, act, openZone }: StepProps) => {
         onChange={(chest) => assess({ chest })}
         options={[
           { value: 'normal', label: 'Bez poranění', tone: 'ok' },
-          { value: 'open_wound', label: 'Otevřená rána hrudníku', hint: '→ ventilový chest seal', tone: 'warn' },
+          { value: 'open_wound', label: 'Otevřená rána hrudníku', hint: '→ ventilová hrudní náplast', tone: 'warn' },
           {
             value: 'tension_suspected',
             label: 'Podezření na tenzní PNO',
@@ -123,9 +123,9 @@ const StepR = ({ casualty, act, openZone }: StepProps) => {
       />
       <Guidance
         items={[
-          'Chest seal / NDC zapiš klepnutím na oblast hrudníku na mapě.',
+          'Hrudní náplast / NDC zapiš klepnutím na oblast hrudníku na mapě.',
           'NDC: 5. mezižebří v přední axilární čáře, nebo 2. mezižebří v medioklavikulární čáře. Jehla 14G nebo 10G, 3,25″.',
-          'Po chest sealu sleduj dýchání – tenzní PNO se může rozvinout i později.',
+          'Po přiložení náplasti sleduj dýchání – tenzní PNO se může rozvinout i později.',
         ]}
       />
       <MapBlock casualty={casualty} openZone={openZone} highlight={['thoracic']} />
@@ -153,7 +153,7 @@ const StepC = ({ casualty, act, now }: StepProps) => {
           <strong>Známky šoku.</strong> Zkontroluj všechny zdroje krvácení, polož zraněného, chraň před chladem, vyžádej zdravotníka a urgentní evakuaci.
         </Section>
       )}
-      <Section title="Reassessment turniketů a obvazů">
+      <Section title="Přehodnocení turniketů a obvazů">
         <TqPanel casualty={casualty} now={now} act={act} />
       </Section>
       {txaIndicated(casualty) && (
@@ -195,14 +195,14 @@ const StepH = ({ casualty, act }: StepProps) => {
           if (hypothermia === 'done' && casualty.assessment.hypothermia !== 'done') act((c, t) => addIntervention(c, 'hypothermia', t));
         }}
         options={[
-          { value: 'done', label: 'Provedeno', hint: 'izolace od země, mokrý oděv pryč, Ready-Heat / Blizzard', tone: 'ok' },
+          { value: 'done', label: 'Provedeno', hint: 'izolace od země, mokrý oděv pryč, ohřívací přikrývka', tone: 'ok' },
           { value: 'not_possible', label: 'Nelze (chybí vybavení)', tone: 'warn' },
         ]}
       />
       <Guidance
         items={[
           'Podchlazení zhoršuje srážlivost krve – chraň před chladem i v teplém klimatu.',
-          'Penetrující poranění oka: Rigid Eye Shield (bez tlaku) a Combat Pill Pack s antibiotikem.',
+          'Penetrující poranění oka: pevný oční kryt (bez tlaku) a antibiotikum z balíčku léků.',
           'Při podezření na TBI opakovaně kontroluj AVPU.',
         ]}
       />
@@ -231,12 +231,12 @@ const StepP = ({ casualty, act }: StepProps) => {
           }
         }}
         options={[
-          { value: 'given', label: 'Podán Combat Pill Pack', hint: 'meloxicam 15 mg + paracetamol 2× 650 mg p.o.', tone: 'ok' },
+          { value: 'given', label: 'Podán balíček léků (CWMP)', hint: 'meloxicam 15 mg + paracetamol 2× 650 mg p.o.', tone: 'ok' },
           { value: 'none', label: 'Bez bolesti / nepotřebuje' },
           { value: 'not_possible', label: 'Nelze', hint: 'bezvědomí, nemůže polykat, šok, alergie', tone: 'warn' },
         ]}
       />
-      <Guidance items={['Pill Pack jen u zraněného při vědomí, který dokáže polykat.', 'Silnější analgezii (ketamin, fentanyl) podává zdravotník.']} />
+      <Guidance items={['Balíček léků jen u zraněného při vědomí, který dokáže polykat.', 'Silnější analgezii (ketamin, fentanyl) podává zdravotník.']} />
     </>
   );
 };
@@ -254,7 +254,7 @@ const StepAntibiotics = ({ casualty, act }: StepProps) => {
         }
       }}
       options={[
-        { value: 'given', label: 'Moxifloxacin 400 mg p.o.', hint: 'jednorázově z Pill Packu', tone: 'ok' },
+        { value: 'given', label: 'Moxifloxacin 400 mg p.o.', hint: 'jednorázově z balíčku léků', tone: 'ok' },
         { value: 'not_indicated', label: 'Bez otevřené rány' },
         { value: 'not_possible', label: 'Nelze', hint: 'nemůže polykat, alergie', tone: 'warn' },
       ]}

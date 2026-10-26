@@ -27,7 +27,7 @@ export const useTqAlerts = (casualties: Casualty[], now: number): void => {
           const elapsed = now - tq.appliedAt;
           const who = `${casualty.identity.battleRoster} ${LIMB_LABEL[tq.limb]}`;
           const levels: Array<[string, number, string]> = [
-            ['warn', TQ_WARNING_MS, `${who}: za 15 min uplynou 2 h od přiložení TQ. Proveďte reassessment / konverzi.`],
+            ['warn', TQ_WARNING_MS, `${who}: za 15 min uplynou 2 h od přiložení TQ. Proveďte přehodnocení / konverzi.`],
             ['limit', TQ_REASSESS_MS, `${who}: TQ přiložen 2 h. Konverzi smí provést už jen zdravotník.`],
           ];
           levels.forEach(([level, threshold, message]) => {

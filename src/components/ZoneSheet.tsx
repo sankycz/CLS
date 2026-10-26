@@ -18,10 +18,10 @@ const BLEEDINGS: Bleeding[] = ['massive', 'moderate', 'minor', 'none'];
 
 const INTERVENTION_HINT: Partial<Record<InterventionKind, string>> = {
   tq_deliberate: 'Na kůži 5–7 cm nad ranou, ne přes kloub. Utahovat, dokud krvácení neustane a nezmizí distální pulz.',
-  tq_hasty: 'Co nejvýše na končetině (high & tight), přes oděv.',
+  tq_hasty: 'Co nejvýše na končetině a co nejtěsněji, přes oděv.',
   wound_packing: 'Vyplnit ránu až ke zdroji krvácení, pak min. 3 min přímý tlak.',
-  chest_seal: 'Ventilový chest seal na vstup i výstup. Sledovat rozvoj tenzního PNO.',
-  direct_pressure: 'Dočasné opatření, než bude k dispozici packing / tlakový obvaz.',
+  chest_seal: 'Ventilovou náplast na vstup i výstup. Sledovat rozvoj tenzního PNO.',
+  direct_pressure: 'Dočasné opatření, než bude k dispozici tamponáda nebo tlakový obvaz.',
   splint: 'Před a po dlahování zkontrolovat CMS (cirkulace, motorika, citlivost).',
   eye_shield: 'Pevný kryt, žádný tlak na oko.',
 };

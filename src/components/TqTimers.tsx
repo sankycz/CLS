@@ -46,7 +46,7 @@ export const TqPanel = ({ casualty, now, act }: { casualty: Casualty; now: numbe
           <div key={tq.id} className={`tq-card tq-card-${status}`}>
             <div className="tq-card-head">
               <strong>
-                {LIMB_LABEL[tq.limb]} – {tq.type === 'hasty' ? 'Hasty' : 'Deliberate'} TQ
+                {LIMB_LABEL[tq.limb]} – {tq.type === 'hasty' ? 'rychlý' : 'cílený'} TQ
               </strong>
               <span className="tq-time">{formatDuration(now - tq.appliedAt)}</span>
             </div>
@@ -61,7 +61,7 @@ export const TqPanel = ({ casualty, now, act }: { casualty: Casualty; now: numbe
               </Button>
               {tq.type === 'hasty' && (
                 <Button tone="danger" onClick={() => act((c, t) => replaceWithDeliberate(c, tq.id, t))}>
-                  Nahradit deliberate TQ
+                  Nahradit cíleným TQ
                 </Button>
               )}
               {canCLSConvert(tq, now) && (

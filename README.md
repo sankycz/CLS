@@ -6,10 +6,10 @@ Offline webová aplikace (PWA), která provádí záchranáře na úrovni Combat
 
 ## Co umí
 
-- **Stavový automat** (`src/model/fsm.ts`): `PHASE_QUERY → CUF_EXECUTOR → MARCH_M … PAWS_S → REPORT_GEN → TACEVAC`. Krok MARCH PAWS nejde dokončit, dokud nejsou vyřešené kritické body (např. nezastavené masivní krvácení, otevřená rána hrudníku bez chest sealu, nepřehodnocený turniket). Přeskočit se dá jen vědomě a zapíše se to do záznamu. Kroky nejde přeskakovat dopředu. Tlačítko „PALBA!“ kdykoli vrátí do CUF, „Změna stavu“ vrátí postup na M.
-- **Care Under Fire**: čtyři velká tlačítka Hasty TQ podle končetiny a přesun do krytu.
+- **Stavový automat** (`src/model/fsm.ts`): `PHASE_QUERY → CUF_EXECUTOR → MARCH_M … PAWS_S → REPORT_GEN → TACEVAC`. Krok MARCH PAWS nejde dokončit, dokud nejsou vyřešené kritické body (např. nezastavené masivní krvácení, otevřená rána hrudníku bez hrudní náplasti, nepřehodnocený turniket). Přeskočit se dá jen vědomě a zapíše se to do záznamu. Kroky nejde přeskakovat dopředu. Tlačítko „PALBA!“ kdykoli vrátí do CUF, „Změna stavu“ vrátí postup na M.
+- **Care Under Fire**: čtyři velká tlačítka rychlý TQ podle končetiny a přesun do krytu.
 - **SVG mapa těla** zepředu i zezadu s anatomickými zónami (končetinové, junkční, hrudní, nestlačitelné). Klepnutí otevře spodní panel se zraněními a zásahy pro danou oblast. Barvy podle závažnosti, nezastavené masivní krvácení bliká, turnikety jsou vyznačené páskem. Malé zóny (podpaží, tříslo) jdou vybrat i ze seznamu.
-- **Časovače turniketů**: čas od přiložení, reassessment, náhrada hasty → deliberate, konverze CLS jen do 2 h. Upozornění 15 min před limitem a po 2 h (vibrace + notifikace).
+- **Časovače turniketů**: čas od přiložení, reassessment, náhrada rychlého TQ cíleným, konverze CLS jen do 2 h. Upozornění 15 min před limitem a po 2 h (vibrace + notifikace).
 - **Hlášení**: 9-Line MEDEVAC s fonetickou abecedou pro vysílání (L1–5 zvýrazněné), návrh naléhavosti a typu pacienta, souhrnné hlášení za všechny ošetřované; MIST; náhled karty DD 1380 s tiskem do PDF; kopírování do schránky.
 - **TACEVAC**: zápis vitálních funkcí stepperem (ovladatelný v rukavicích), přehled zásahů s možností smazat omyl.
 - **Offline-first**: service worker s cache-first strategií, data v IndexedDB + záloha v localStorage, žádný server. Režimy zobrazení TMA / DEN / NVG (červená na černé), wake lock displeje, haptická odezva.
@@ -35,20 +35,22 @@ src/hooks/      časovač, téma, wake lock, upozornění na TQ
 
 ## Nasazení na Cloudflare
 
-Statické soubory servíruje Cloudflare Workers (Static Assets), konfigurace je ve `wrangler.jsonc`.
+Běží na **https://cls.j-sankot.workers.dev** (Cloudflare Workers). `npm run build` zabalí obsah `dist/` přímo do Workeru (`.worker/worker.js`, skript `scripts/build-worker.mjs`), který soubory servíruje s hlavičkami pro cache a SPA fallbackem.
+
+Ruční nasazení:
 
 ```bash
 npx wrangler login
 npm run deploy
 ```
 
-Případně lze repozitář napojit na Cloudflare Workers Builds (build: `npm run build`, deploy: `npx wrangler deploy`).
+Automatické nasazení: workflow `.github/workflows/deploy.yml` při každém pushi spustí testy a build a z `main` nasadí, jakmile jsou v repu (Settings → Secrets and variables → Actions) nastavené `CLOUDFLARE_API_TOKEN` (šablona „Edit Cloudflare Workers“) a `CLOUDFLARE_ACCOUNT_ID`.
 
 ## Odchylky od výchozí specifikace
 
 Tam, kde se podklad lišil od aktuálních doporučení CoTCCC, aplikace se drží CoTCCC:
 
-- **Combat Wound Medication Pack**: paracetamol 2× 650 mg (1300 mg), ne 1000 mg; meloxicam 15 mg; moxifloxacin 400 mg.
+- **Balíček léků na rány (CWMP)**: paracetamol 2× 650 mg (1300 mg), ne 1000 mg; meloxicam 15 mg; moxifloxacin 400 mg.
 - **NDC**: nabízí se 5. mezižebří v přední axilární čáře i 2. mezižebří v medioklavikulární čáře, jehla 14G nebo 10G, 3,25″.
 - **TXA** podává zdravotník (CMC). CLS ji nepodává, aplikace jen upozorní na indikaci a umožní zapsat, že ji podal zdravotník.
 - **Časovače** v prohlížeči neběží na pozadí při zamčeném telefonu (Background Sync k tomu neslouží). Čas přiložení TQ je proto vždy nutné zapsat i fyzicky.

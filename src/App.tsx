@@ -34,7 +34,7 @@ const Disclaimer = ({ onAccept }: { onAccept: () => void }) => (
     <div className="sheet disclaimer" role="dialog" aria-label="Upozornění">
       <h2>Výcviková pomůcka</h2>
       <p>
-        Aplikace podporuje postup TCCC na úrovni Combat Lifesaver (MARCH PAWS, 9-Line MEDEVAC, MIST, DD 1380). Nenahrazuje certifikovaný výcvik, pokyny
+        Aplikace podporuje postup TCCC na úrovni záchranáře CLS (MARCH PAWS, 9-Line MEDEVAC, MIST, DD 1380). Nenahrazuje certifikovaný výcvik, pokyny
         zdravotníka ani platné směrnice CoTCCC / JTS a vlastního útvaru.
       </p>
       <p>Časovače turniketů fungují jen při otevřené aplikaci. Čas přiložení TQ vždy zapiš i fyzicky na zraněného.</p>
